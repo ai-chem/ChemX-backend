@@ -1,0 +1,28 @@
+# Виртуальные окружения
+venv/
+.venv/
+env/
+.env/
+env.bak/
+.env.bak/
+
+# Файлы кэша Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Файлы IDE (VSCode, PyCharm)
+.vscode/
+.idea/
+
+# Локальные настройки и секреты
+.env
+
+# Логи и базы данных
+*.log
+*.db
+*.sqlite3
+
+# Другое
+.DS_Store

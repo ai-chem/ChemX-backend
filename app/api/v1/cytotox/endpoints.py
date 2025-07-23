@@ -1,0 +1,49 @@
+
+from fastapi import Depends, HTTPException, Query, Response
+from sqlalchemy.orm import Session
+
+# Импортируем новую утилиту
+from app.api.v1.common.utils import create_downloadable_response
+
+from app.database import get_db
+from app.api.v1.cytotox.service import CytotoxService
+from app.api.v1.cytotox.schemas import CytotoxResponse
+
+
+# --- Эндпоинт с пагинацией ---
+async def get_cytotox_data(
+    limit: int = Query(50, gt=0, le=1000),
+    offset: int = Query(0, ge=0),
+    db: Session = Depends(get_db)
+) -> CytotoxResponse:
+    try:
+        data, total = CytotoxService.get_data(db, limit, offset)
+        return CytotoxResponse(data=data, total=total)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Ошибка при получении данных: {str(e)}")
+
+
+
+async def get_all_cytotox_data(
+    db: Session = Depends(get_db),
+    file_format: str = Query("json", enum=["json", "csv"])
+) -> Response:
+    """
+    Скачать ВСЕ данные из витрины cytotox в формате JSON или CSV.
+    Используйте параметр ?format=csv для получения CSV файла.
+    """
+    try:
+        # 1. Получаем данные от сервиса (как и раньше)
+        all_data = CytotoxService.get_all_data(db)
+
+        # 2. Делегируем всю работу по созданию ответа нашей утилите
+        return create_downloadable_response(
+            data=all_data,
+            file_format=file_format,
+            base_filename="cytotox_all_data"
+        )
+
+    except Exception as e:
+        # Обработка ошибок остается на случай, если сервис вернет ошибку
+        print(f"Произошла ошибка: {e}")
+        raise HTTPException(status_code=500, detail=f"Ошибка при получении данных: {str(e)}")
