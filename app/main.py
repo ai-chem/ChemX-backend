@@ -12,8 +12,24 @@ async def root():
 
 # Импорт и подключение роутеров
 def include_routers():
+    # Существующие роутеры
     from app.api.v1.cytotox.router import router as cytotox_router
     app.include_router(cytotox_router, prefix="/api/v1/cytotox", tags=["Cytotox"])
+
+    from app.api.v1.nanomag.router import router as nanomag_router
+    app.include_router(nanomag_router, prefix="/api/v1/nanomag", tags=["Nanomag"])
+
+    # Новые роутеры
+    from app.api.v1.nanozymes.router import router as nanozymes_router
+    app.include_router(nanozymes_router, prefix="/api/v1/nanozymes", tags=["Nanozymes"])
+
+    from app.api.v1.seltox.router import router as seltox_router
+    app.include_router(seltox_router, prefix="/api/v1/seltox", tags=["Seltox"])
+
+    from app.api.v1.synergy.router import router as synergy_router
+    app.include_router(synergy_router, prefix="/api/v1/synergy", tags=["Synergy"])
+
+
 
 # Подключаем роутеры
 include_routers()

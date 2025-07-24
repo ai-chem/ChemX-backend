@@ -10,6 +10,6 @@ class CytotoxData(Base):
     __table_args__ = {"schema": "dbt_serving"}
 
     # Определяем только первичный ключ, т.к. будем использовать динамический выбор полей
-    serial_number = Column(BigInяteger, primary_key=True)
+    serial_number = Column(BigInteger, primary_key=True)
 
     # Остальные поля будут доступны через reflection или через прямые запросы
