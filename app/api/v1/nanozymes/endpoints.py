@@ -17,3 +17,25 @@ async def get_all_nanozymes_data(
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+async def get_nanozymes_column_stats(db: Session = Depends(get_db), file_format: str = Query("json", enum=["json", "csv"])) -> Response:
+    try:
+        data = NanozymesService.get_column_stats(db)
+        return create_downloadable_response(data, file_format, "nanozymes_column_stats")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+async def get_nanozymes_row_stats(db: Session = Depends(get_db), file_format: str = Query("json", enum=["json", "csv"])) -> Response:
+    try:
+        data = NanozymesService.get_row_stats(db)
+        return create_downloadable_response(data, file_format, "nanozymes_row_stats")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+async def get_nanozymes_top_categories(db: Session = Depends(get_db), file_format: str = Query("json", enum=["json", "csv"])) -> Response:
+    try:
+        data = NanozymesService.get_top_categories(db)
+        return create_downloadable_response(data, file_format, "nanozymes_top_categories")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

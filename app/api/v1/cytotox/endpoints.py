@@ -47,3 +47,60 @@ async def get_all_cytotox_data(
         # Обработка ошибок остается на случай, если сервис вернет ошибку
         print(f"Произошла ошибка: {e}")
         raise HTTPException(status_code=500, detail=f"Ошибка при получении данных: {str(e)}")
+
+
+async def get_cytotox_column_stats(
+    db: Session = Depends(get_db),
+    file_format: str = Query("json", enum=["json", "csv"])
+) -> Response:
+    """
+    Скачать статистику по колонкам для домена Cytotox.
+    """
+    try:
+        # Вызываем новый метод сервиса
+        stats_data = CytotoxService.get_column_stats(db)
+        # Переиспользуем нашу универсальную утилиту
+        return create_downloadable_response(
+            data=stats_data,
+            file_format=file_format,
+            base_filename="cytotox_column_stats"
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+async def get_cytotox_row_stats(
+    db: Session = Depends(get_db),
+    file_format: str = Query("json", enum=["json", "csv"])
+) -> Response:
+    """
+    Скачать статистику по строкам для домена Cytotox.
+    """
+    try:
+        # Вызываем второй новый метод сервиса
+        stats_data = CytotoxService.get_row_stats(db)
+        # И снова переиспользуем нашу утилиту
+        return create_downloadable_response(
+            data=stats_data,
+            file_format=file_format,
+            base_filename="cytotox_row_stats"
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+async def get_cytotox_top_categories(
+    db: Session = Depends(get_db),
+    file_format: str = Query("json", enum=["json", "csv"])
+) -> Response:
+    """
+    Скачать статистику по топовым категориям для домена Cytotox.
+    """
+    try:
+        stats_data = CytotoxService.get_top_categories(db)
+        return create_downloadable_response(
+            data=stats_data,
+            file_format=file_format,
+            base_filename="cytotox_top_categories"
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

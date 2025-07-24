@@ -32,3 +32,25 @@ async def get_all_nanomag_data(
     except Exception as e:
         print(f"Произошла ошибка в домене Nanomag: {e}")
         raise HTTPException(status_code=500, detail=str(e))
+
+async def get_nanomag_column_stats(db: Session = Depends(get_db), file_format: str = Query("json", enum=["json", "csv"])) -> Response:
+    try:
+        data = NanomagService.get_column_stats(db)
+        return create_downloadable_response(data, file_format, "nanomag_column_stats")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+async def get_nanomag_row_stats(db: Session = Depends(get_db), file_format: str = Query("json", enum=["json", "csv"])) -> Response:
+    try:
+        data = NanomagService.get_row_stats(db)
+        return create_downloadable_response(data, file_format, "nanomag_row_stats")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+async def get_nanomag_top_categories(db: Session = Depends(get_db), file_format: str = Query("json", enum=["json", "csv"])) -> Response:
+    try:
+        data = NanomagService.get_top_categories(db)
+        return create_downloadable_response(data, file_format, "nanomag_top_categories")
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
