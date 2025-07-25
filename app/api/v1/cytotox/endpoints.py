@@ -1,5 +1,6 @@
 
 from fastapi import Depends, HTTPException, Query, Response
+from typing import Optional
 from sqlalchemy.orm import Session
 
 # Импортируем новую утилиту
@@ -26,15 +27,12 @@ async def get_cytotox_data(
 
 async def get_all_cytotox_data(
     db: Session = Depends(get_db),
-    file_format: str = Query("json", enum=["json", "csv"])
+    file_format: str = Query("json", enum=["json", "csv"]),
+    nanoparticle: Optional[str] = Query(None, description="Фильтр по материалу наночастицы")
 ) -> Response:
-    """
-    Скачать ВСЕ данные из витрины cytotox в формате JSON или CSV.
-    Используйте параметр ?format=csv для получения CSV файла.
-    """
     try:
-        # 1. Получаем данные от сервиса (как и раньше)
-        all_data = CytotoxService.get_all_data(db)
+        # Передаем параметр в сервис
+        all_data = CytotoxService.get_all_data(db, nanoparticle=nanoparticle)
 
         # 2. Делегируем всю работу по созданию ответа нашей утилите
         return create_downloadable_response(

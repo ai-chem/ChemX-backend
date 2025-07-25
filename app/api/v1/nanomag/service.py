@@ -1,28 +1,27 @@
 # app/api/v1/nanomag/service.py
-
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-from typing import List, Dict, Any
+from typing import List, Dict, Any, Optional
+from app.api.v1.common.utils import build_filtered_query
 
 
 class NanomagService:
-    """Сервис для работы с данными домена Nanomag."""
-
     @staticmethod
-    def get_all_data(db: Session) -> List[Dict[str, Any]]:
-        """
-        Получение ВСЕХ данных из таблицы nanomag.
-        """
-        # !!! ВАЖНО: Замени 'serving_all_data_nanomag' на реальное имя твоей таблицы Nanomag !!!
+    def get_all_data(
+            db: Session,
+            nanoparticle: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
         table_name = "dbt_serving.serving_all_data_nanomag"
 
-        query = text(f"SELECT * FROM {table_name}")
-
-        result = db.execute(query)
+        filters = {
+            "nanoparticle": nanoparticle,
+        }
+        query, params = build_filtered_query(table_name, filters)
+        result = db.execute(query, params)
         data = [dict(row._mapping) for row in result]
-
         return data
 
+    # Здесь остаются другие методы для аналитики, если они были
     @staticmethod
     def get_column_stats(db: Session) -> List[Dict[str, Any]]:
         table_name = "dbt_serving.serving_analytics_column_stats_nanomag"

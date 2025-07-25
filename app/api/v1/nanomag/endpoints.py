@@ -6,31 +6,29 @@ from sqlalchemy.orm import Session
 # Используем нашу общую утилиту
 from app.api.v1.common.utils import create_downloadable_response
 from app.database import get_db
-# Импортируем сервис ИМЕННО ЭТОГО домена
 from .service import NanomagService
+from typing import Optional
 
 
 async def get_all_nanomag_data(
     db: Session = Depends(get_db),
-    file_format: str = Query("json", enum=["json", "csv"])
+    file_format: str = Query("json", enum=["json", "csv"]),
+    nanoparticle: Optional[str] = Query(None, description="Фильтр по материалу наночастицы"),
 ) -> Response:
-    """
-    Скачать ВСЕ данные из витрины nanomag в формате JSON или CSV.
-    Используйте параметр ?format=csv для получения CSV файла.
-    """
     try:
-        # Вызываем метод из NanomagService
-        all_data = NanomagService.get_all_data(db)
+        all_data = NanomagService.get_all_data(db, nanoparticle=nanoparticle)
 
-        # Делегируем создание ответа нашей утилите
+        base_filename = "nanomag_all_data"
+        # Можно добавить логику для "умного" имени файла
+        if nanoparticle:
+            base_filename = "nanomag_filtered_data"
+
         return create_downloadable_response(
             data=all_data,
             file_format=file_format,
-            base_filename="nanomag_all_data" # Указываем корректное имя файла
+            base_filename=base_filename
         )
-
     except Exception as e:
-        print(f"Произошла ошибка в домене Nanomag: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
 async def get_nanomag_column_stats(db: Session = Depends(get_db), file_format: str = Query("json", enum=["json", "csv"])) -> Response:

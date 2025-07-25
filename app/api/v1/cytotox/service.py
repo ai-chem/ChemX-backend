@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import text
-from typing import List, Dict, Any, Tuple
+from typing import List, Dict, Any, Tuple, Optional
+from app.api.v1.common.utils import build_filtered_query
 
 
 class CytotoxService:
@@ -34,25 +35,26 @@ class CytotoxService:
 
         return data, total_count
 
-
     @staticmethod
-    def get_all_data(db: Session) -> List[Dict[str, Any]]:
-        """
-        Получение ВСЕХ данных из таблицы без пагинации.
+    def get_all_data(
+            db: Session,
+            nanoparticle: Optional[str] = None
+            # В будущем сюда можно добавлять другие фильтры:
+            # cell_line: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
+        table_name = "dbt_serving.serving_all_data_cytotox"
 
-        Args:
-            db: Сессия базы данных
+        # Собираем фильтры в словарь
+        filters = {
+            "nanoparticle": nanoparticle,
+            # "cell_line": cell_line
+        }
 
-        Returns:
-            Список всех записей.
-        """
-        # Простой запрос на получение всех данных
-        query = text(f"""SELECT * FROM dbt_serving.serving_all_data_cytotox""")
+        # Делегируем всю сложную работу утилите
+        query, params = build_filtered_query(table_name, filters)
 
-        # Выполняем запрос и преобразуем результат в список словарей
-        result = db.execute(query)
+        result = db.execute(query, params)
         data = [dict(row._mapping) for row in result]
-
         return data
 
     @staticmethod

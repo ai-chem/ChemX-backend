@@ -1,8 +1,9 @@
 
 from fastapi import Response
 import pandas as pd
-from typing import List, Dict, Any
-
+from typing import List, Dict, Any, Tuple, Optional
+from sqlalchemy import text
+from sqlalchemy.sql.elements import TextClause
 
 def create_downloadable_response(
         data: List[Dict[str, Any]],
@@ -46,3 +47,36 @@ def create_downloadable_response(
             "Content-Disposition": f"attachment; filename={filename}"
         }
     )
+
+
+def build_filtered_query(
+        base_table: str,
+        filters: Optional[Dict[str, Any]] = None
+) -> Tuple[TextClause, Dict[str, Any]]:
+    """
+    Универсально строит SQL-запрос с WHERE-условиями на основе словаря.
+
+    Args:
+        base_table: Имя таблицы с путем (e.g., 'dbt_serving.my_table').
+        filters: Словарь, где ключ - имя колонки, значение - значение для фильтра.
+
+    Returns:
+        Кортеж из (SQLAlchemy-запрос, словарь с параметрами).
+    """
+    query_string = f"SELECT * FROM {base_table}"
+    params = {}
+    where_clauses = []
+
+    if filters:
+        for column, value in filters.items():
+            if value is not None:
+                # Мы предполагаем, что имена колонок безопасны,
+                # т.к. они приходят из кода, а не от пользователя напрямую.
+                param_name = f"filter_{column}"
+                where_clauses.append(f"{column} = :{param_name}")
+                params[param_name] = value
+
+    if where_clauses:
+        query_string += " WHERE " + " AND ".join(where_clauses)
+
+    return text(query_string), params

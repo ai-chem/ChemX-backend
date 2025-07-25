@@ -19,12 +19,10 @@ router.add_api_route(
     description="Получает данные из витрины cytotox с пагинацией"
 )
 
-# --- !!! НАША НОВАЯ РЕГИСТРАЦИЯ !!! ---
-# Выбираем новый путь, чтобы не было конфликта. `/data/all` - хороший вариант.
-# Полный путь будет: /api/v1/cytotox/data/all
+
 router.add_api_route(
     "/data/all",
-    get_all_cytotox_data, # Указываем новую функцию-обработчик
+    get_all_cytotox_data,
     methods=["GET"],
     response_model_exclude_none=True,
     summary="Получить ВСЕ данные цитотоксичности",
