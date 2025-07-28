@@ -1,6 +1,5 @@
-from sqlalchemy import Column, Integer, String, Float, Boolean, BigInteger, DateTime, Text
-from sqlalchemy.ext.declarative import declarative_base
-from app.database import Base
+from sqlalchemy import Column, BigInteger
+from database import Base
 
 
 class CytotoxData(Base):

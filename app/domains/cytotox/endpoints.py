@@ -4,11 +4,11 @@ from typing import Optional
 from sqlalchemy.orm import Session
 
 # Импортируем новую утилиту
-from app.api.v1.common.utils import create_downloadable_response
+from app.domains.common.utils import create_downloadable_response
 
-from app.database import get_db
-from app.api.v1.cytotox.service import CytotoxService
-from app.api.v1.cytotox.schemas import CytotoxResponse
+from database import get_db
+from app.domains.cytotox.service import CytotoxService
+from app.domains.cytotox.schemas import CytotoxResponse
 
 
 # --- Эндпоинт с пагинацией ---
