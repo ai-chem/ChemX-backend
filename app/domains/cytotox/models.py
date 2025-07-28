@@ -1,5 +1,5 @@
 from sqlalchemy import Column, BigInteger
-from database import Base
+from app.database import Base
 
 
 class CytotoxData(Base):

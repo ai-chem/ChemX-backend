@@ -2,7 +2,7 @@ from fastapi import Depends, HTTPException, Query, Response
 from sqlalchemy.orm import Session
 from typing import Optional
 from app.domains.common.utils import create_downloadable_response
-from database import get_db
+from app.database import get_db
 from .service import SynergyService
 
 async def get_all_synergy_data(
