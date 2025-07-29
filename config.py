@@ -1,24 +1,24 @@
-from pydantic import BaseModel
+# config.py
+from pydantic_settings import BaseSettings
 
+class Settings(BaseSettings):
 
-class Settings(BaseModel):
-    # Настройки базы данных
-    DB_HOST: str = "localhost"
-    DB_PORT: int = 5432
-    DB_NAME: str = "ChemX"
-    DB_USER: str = "postgres"
-    DB_PASSWORD: str = "1321122Ar"
+    DB_HOST: str
+    DB_PORT: int
+    DB_NAME: str
+    DB_USER: str
+    DB_PASSWORD: str
 
-    # Настройки приложения
     APP_NAME: str = "ChemX Data API"
     APP_VERSION: str = "1.0.0"
     DEBUG: bool = True
 
-    # Формирование строки подключения
+    class Config:
+        env_file = ".env"
+        env_file_encoding = "utf-8"
+
     @property
     def DATABASE_URL(self) -> str:
         return f"postgresql://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
-
-# Создаём экземпляр настроек для использования в других модулях
 settings = Settings()
