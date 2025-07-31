@@ -1,7 +1,7 @@
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 from typing import List, Dict, Any, Tuple, Optional
-from app.api.v1.common.utils import build_filtered_query
+from app.domains.common.utils import build_filtered_query
 
 
 class CytotoxService:

@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from app.api.v1.cytotox.endpoints import (
+from app.domains.cytotox.endpoints import (
     get_cytotox_data,
     get_all_cytotox_data,
     get_cytotox_column_stats,

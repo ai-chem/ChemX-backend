@@ -1,7 +1,7 @@
 from fastapi import Depends, HTTPException, Query, Response
 from sqlalchemy.orm import Session
 from typing import Optional
-from app.api.v1.common.utils import create_downloadable_response
+from app.domains.common.utils import create_downloadable_response
 from app.database import get_db
 from .service import SeltoxService
 

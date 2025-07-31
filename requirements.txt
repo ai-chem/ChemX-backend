@@ -4,3 +4,6 @@ sqlalchemy
 psycopg2-binary
 pydantic
 pandas
+pytest
+httpx
+pydantic-settings

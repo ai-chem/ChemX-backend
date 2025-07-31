@@ -4,7 +4,7 @@ from fastapi import Depends, HTTPException, Query, Response
 from sqlalchemy.orm import Session
 
 # Используем нашу общую утилиту
-from app.api.v1.common.utils import create_downloadable_response
+from app.domains.common.utils import create_downloadable_response
 from app.database import get_db
 from .service import NanomagService
 from typing import Optional
