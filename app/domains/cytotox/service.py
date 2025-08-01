@@ -8,7 +8,9 @@ class CytotoxService:
     """Сервис для работы с данными цитотоксичности"""
 
     @staticmethod
-    def get_data(db: Session, limit: int = 50, offset: int = 0) -> Tuple[List[Dict[str, Any]], int]:
+    def get_data(
+        db: Session, limit: int = 50, offset: int = 0
+    ) -> Tuple[List[Dict[str, Any]], int]:
         """
         Получение данных с применением пагинации
 
@@ -20,8 +22,13 @@ class CytotoxService:
         Returns:
             Tuple[List[Dict], int]: Список записей и общее количество записей
         """
-        # Получаем общее количество записей
-        total_count = db.execute(text("SELECT COUNT(*) FROM dbt_serving.serving_all_data_cytotox")).scalar()
+        total_count_result = db.execute(
+            text("SELECT COUNT(*) FROM dbt_serving.serving_all_data_cytotox")
+        ).scalar()
+
+        # Если .scalar() вернул None (например, таблица пуста), мы считаем, что это 0.
+        # Таким образом, переменная total_count ГАРАНТИРОВАННО будет типа int.
+        total_count = total_count_result or 0
 
         # Выполняем запрос с пагинацией
         query = text(f"""
@@ -37,10 +44,10 @@ class CytotoxService:
 
     @staticmethod
     def get_all_data(
-            db: Session,
-            nanoparticle: Optional[str] = None
-            # В будущем сюда можно добавлять другие фильтры:
-            # cell_line: Optional[str] = None
+        db: Session,
+        nanoparticle: Optional[str] = None,
+        # В будущем сюда можно добавлять другие фильтры:
+        # cell_line: Optional[str] = None
     ) -> List[Dict[str, Any]]:
         table_name = "dbt_serving.serving_all_data_cytotox"
 

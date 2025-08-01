@@ -1,0 +1,44 @@
+
+repos:
+  # 1. Базовые проверки для всех типов файлов (чистота и гигиена)
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace   # Убирает лишние пробелы в конце строк
+      - id: end-of-file-fixer      # Гарантирует пустую строку в конце файла
+      - id: check-yaml             # Проверяет синтаксис YAML-файлов
+      - id: check-json             # Проверяет синтаксис JSON-файлов
+      - id: check-merge-conflict   # Предотвращает коммит с маркерами конфликтов (<<<<<, =====, >>>>>)
+      - id: check-added-large-files # Предупреждает о добавлении больших файлов (>500KB)
+
+  # 2. Ruff - главный инструмент для Python: линтинг, форматирование, сортировка импортов
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4 # Актуальная версия на момент написания
+    hooks:
+      # Запускаем линтер и автоисправление
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix]
+      # Запускаем форматер (альтернатива Black). Код будет отформатирован автоматически.
+      - id: ruff-format
+
+  # 3. Mypy - строгая проверка аннотаций типов
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.10.0
+    hooks:
+      - id: mypy
+        # Чтобы mypy понимал типы из FastAPI, SQLAlchemy и других библиотек,
+        # их нужно установить в его окружение.
+        additional_dependencies:
+          - "fastapi"
+          - "sqlalchemy"
+          - "pydantic"
+          - "pandas"
+          - "types-requests"
+          # Добавьте сюда другие библиотеки из вашего requirements.txt, если mypy будет на них ругаться
+
+  # 4. nbstripout - для очистки ноутбуков (если вы их добавите)
+  # Если в проекте нет и не будет .ipynb файлов, этот блок можно удалить.
+  - repo: https://github.com/kynan/nbstripout
+    rev: 0.7.1
+    hooks:
+      - id: nbstripout

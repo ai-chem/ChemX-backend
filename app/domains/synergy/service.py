@@ -3,9 +3,12 @@ from typing import List, Dict, Any, Optional
 from app.domains.common.utils import build_filtered_query
 from sqlalchemy import text
 
+
 class SynergyService:
     @staticmethod
-    def get_all_data(db: Session, nanoparticle: Optional[str] = None) -> List[Dict[str, Any]]:
+    def get_all_data(
+        db: Session, nanoparticle: Optional[str] = None
+    ) -> List[Dict[str, Any]]:
         table_name = "dbt_serving.serving_all_data_synergy"
         filters = {"nanoparticle": nanoparticle}
         query, params = build_filtered_query(table_name, filters)
