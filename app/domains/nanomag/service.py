@@ -8,8 +8,7 @@ from app.domains.common.utils import build_filtered_query
 class NanomagService:
     @staticmethod
     def get_all_data(
-            db: Session,
-            nanoparticle: Optional[str] = None
+        db: Session, nanoparticle: Optional[str] = None
     ) -> List[Dict[str, Any]]:
         table_name = "dbt_serving.serving_all_data_nanomag"
 
