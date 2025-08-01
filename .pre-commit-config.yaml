@@ -13,12 +13,11 @@ repos:
 
   # 2. Ruff - главный инструмент для Python: линтинг, форматирование, сортировка импортов
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.4.4 # Актуальная версия на момент написания
+    rev: v0.4.4
     hooks:
-      # Запускаем линтер и автоисправление
+      # Запускаем автоисправление
       - id: ruff
         args: [--fix, --exit-non-zero-on-fix]
-      # Запускаем форматер (альтернатива Black). Код будет отформатирован автоматически.
       - id: ruff-format
 
   # 3. Mypy - строгая проверка аннотаций типов
@@ -26,19 +25,9 @@ repos:
     rev: v1.10.0
     hooks:
       - id: mypy
-        # Чтобы mypy понимал типы из FastAPI, SQLAlchemy и других библиотек,
-        # их нужно установить в его окружение.
         additional_dependencies:
           - "fastapi"
           - "sqlalchemy"
           - "pydantic"
           - "pandas"
           - "types-requests"
-          # Добавьте сюда другие библиотеки из вашего requirements.txt, если mypy будет на них ругаться
-
-  # 4. nbstripout - для очистки ноутбуков (если вы их добавите)
-  # Если в проекте нет и не будет .ipynb файлов, этот блок можно удалить.
-  - repo: https://github.com/kynan/nbstripout
-    rev: 0.7.1
-    hooks:
-      - id: nbstripout
