@@ -1,14 +1,13 @@
+from typing import Any
 
-from fastapi import Response
 import pandas as pd
-from typing import List, Dict, Any, Tuple, Optional
+from fastapi import Response
 from sqlalchemy import text
 from sqlalchemy.sql.elements import TextClause
 
+
 def create_downloadable_response(
-        data: List[Dict[str, Any]],
-        file_format: str,
-        base_filename: str
+    data: list[dict[str, Any]], file_format: str, base_filename: str
 ) -> Response:
     """
     Универсальная функция для создания ответа для скачивания файла (JSON или CSV).
@@ -35,7 +34,7 @@ def create_downloadable_response(
         filename = f"{base_filename}.csv"
 
     else:  # По умолчанию json
-        content = df.to_json(orient='records', indent=2)
+        content = df.to_json(orient="records", indent=2)
         media_type = "application/json"
         filename = f"{base_filename}.json"
 
@@ -43,16 +42,13 @@ def create_downloadable_response(
     return Response(
         content=content,
         media_type=media_type,
-        headers={
-            "Content-Disposition": f"attachment; filename={filename}"
-        }
+        headers={"Content-Disposition": f"attachment; filename={filename}"},
     )
 
 
 def build_filtered_query(
-        base_table: str,
-        filters: Optional[Dict[str, Any]] = None
-) -> Tuple[TextClause, Dict[str, Any]]:
+    base_table: str, filters: dict[str, Any] | None = None
+) -> tuple[TextClause, dict[str, Any]]:
     """
     Универсально строит SQL-запрос с WHERE-условиями на основе словаря.
 

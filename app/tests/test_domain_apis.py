@@ -1,7 +1,7 @@
 # tests/test_domain_apis.py
-
 import pytest
 from fastapi.testclient import TestClient
+
 from app.main import app
 
 client = TestClient(app)
@@ -38,7 +38,7 @@ def test_all_common_endpoints_succeed(domain_prefix: str, endpoint: str):
     full_url = f"{domain_prefix}{endpoint}"
 
     # Проверяем скачивание в формате CSV
-    print(f"проверяем загрузку csv для - {full_url}") # Этот print поможет при отладке
+    print(f"проверяем загрузку csv для - {full_url}")  # Этот print поможет при отладке
     response_csv = client.get(f"{full_url}?file_format=csv")
 
     # Проверка ответа для CSV
@@ -46,7 +46,7 @@ def test_all_common_endpoints_succeed(domain_prefix: str, endpoint: str):
     assert "text/csv" in response_csv.headers["content-type"]
 
     # Проверяем скачивание в формате JSON
-    print(f"Testing JSON download for: {full_url}") # И этот тоже
+    print(f"Testing JSON download for: {full_url}")  # И этот тоже
     response_json = client.get(f"{full_url}?file_format=json")
 
     # Проверка ответа для JSON
