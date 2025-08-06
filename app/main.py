@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+
 from config import settings
 
 # Создаем экземпляр приложения

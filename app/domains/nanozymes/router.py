@@ -1,10 +1,9 @@
 from fastapi import APIRouter
-from .endpoints import (
-    get_all_nanozymes_data,
-    get_nanozymes_column_stats,
-    get_nanozymes_row_stats,
-    get_nanozymes_top_categories,
-)
+
+from .endpoints import get_all_nanozymes_data
+from .endpoints import get_nanozymes_column_stats
+from .endpoints import get_nanozymes_row_stats
+from .endpoints import get_nanozymes_top_categories
 
 router = APIRouter()
 

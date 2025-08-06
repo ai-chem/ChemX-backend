@@ -1,19 +1,21 @@
 # app/api/v1/nanomag/endpoints.py
-
-from fastapi import Depends, HTTPException, Query, Response
+from fastapi import Depends
+from fastapi import HTTPException
+from fastapi import Query
+from fastapi import Response
 from sqlalchemy.orm import Session
 
-# Используем нашу общую утилиту
-from app.domains.common.utils import create_downloadable_response
-from app.database import get_db
 from .service import NanomagService
-from typing import Optional
+from app.database import get_db
+from app.domains.common.utils import create_downloadable_response
+
+# Используем нашу общую утилиту
 
 
 async def get_all_nanomag_data(
     db: Session = Depends(get_db),
     file_format: str = Query("json", enum=["json", "csv"]),
-    nanoparticle: Optional[str] = Query(
+    nanoparticle: str | None = Query(
         None, description="Фильтр по материалу наночастицы"
     ),
 ) -> Response:

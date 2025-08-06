@@ -1,14 +1,12 @@
 # app/api/v1/nanomag/router.py
-
 from fastapi import APIRouter
 
+from .endpoints import get_all_nanomag_data
+from .endpoints import get_nanomag_column_stats
+from .endpoints import get_nanomag_row_stats
+from .endpoints import get_nanomag_top_categories
+
 # Импортируем наш эндпоинт из соседнего файла
-from .endpoints import (
-    get_all_nanomag_data,
-    get_nanomag_column_stats,
-    get_nanomag_row_stats,
-    get_nanomag_top_categories,
-)
 
 router = APIRouter()
 

@@ -1,15 +1,18 @@
-from fastapi import Depends, HTTPException, Query, Response
+from fastapi import Depends
+from fastapi import HTTPException
+from fastapi import Query
+from fastapi import Response
 from sqlalchemy.orm import Session
-from typing import Optional
-from app.domains.common.utils import create_downloadable_response
-from app.database import get_db
+
 from .service import NanozymesService
+from app.database import get_db
+from app.domains.common.utils import create_downloadable_response
 
 
 async def get_all_nanozymes_data(
     db: Session = Depends(get_db),
     file_format: str = Query("json", enum=["json", "csv"]),
-    nanoparticle: Optional[str] = Query(
+    nanoparticle: str | None = Query(
         None, description="Фильтр по материалу наночастицы"
     ),
 ) -> Response:

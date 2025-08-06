@@ -1,10 +1,9 @@
 from fastapi import APIRouter
-from .endpoints import (
-    get_all_seltox_data,
-    get_seltox_column_stats,
-    get_seltox_row_stats,
-    get_seltox_top_categories,
-)
+
+from .endpoints import get_all_seltox_data
+from .endpoints import get_seltox_column_stats
+from .endpoints import get_seltox_row_stats
+from .endpoints import get_seltox_top_categories
 
 router = APIRouter()
 

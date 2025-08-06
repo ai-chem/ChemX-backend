@@ -1,13 +1,15 @@
-from fastapi import Depends, HTTPException, Query, Response
-from typing import Optional
+from fastapi import Depends
+from fastapi import HTTPException
+from fastapi import Query
+from fastapi import Response
 from sqlalchemy.orm import Session
 
-# Импортируем новую утилиту
-from app.domains.common.utils import create_downloadable_response
-
 from app.database import get_db
-from app.domains.cytotox.service import CytotoxService
+from app.domains.common.utils import create_downloadable_response
 from app.domains.cytotox.schemas import CytotoxResponse
+from app.domains.cytotox.service import CytotoxService
+
+# Импортируем новую утилиту
 
 
 # --- Эндпоинт с пагинацией ---
@@ -28,7 +30,7 @@ async def get_cytotox_data(
 async def get_all_cytotox_data(
     db: Session = Depends(get_db),
     file_format: str = Query("json", enum=["json", "csv"]),
-    nanoparticle: Optional[str] = Query(
+    nanoparticle: str | None = Query(
         None, description="Фильтр по материалу наночастицы"
     ),
 ) -> Response:

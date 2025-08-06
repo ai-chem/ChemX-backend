@@ -1,6 +1,8 @@
-from sqlalchemy.orm import Session
+from typing import Any
+
 from sqlalchemy import text
-from typing import List, Dict, Any, Tuple, Optional
+from sqlalchemy.orm import Session
+
 from app.domains.common.utils import build_filtered_query
 
 
@@ -10,7 +12,7 @@ class CytotoxService:
     @staticmethod
     def get_data(
         db: Session, limit: int = 50, offset: int = 0
-    ) -> Tuple[List[Dict[str, Any]], int]:
+    ) -> tuple[list[dict[str, Any]], int]:
         """
         Получение данных с применением пагинации
 
@@ -31,10 +33,12 @@ class CytotoxService:
         total_count = total_count_result or 0
 
         # Выполняем запрос с пагинацией
-        query = text(f"""
+        query = text(
+            f"""
         SELECT * FROM dbt_serving.serving_all_data_cytotox
         LIMIT {limit} OFFSET {offset}
-        """)
+        """
+        )
 
         # Выполняем запрос и преобразуем результат в список словарей
         result = db.execute(query)
@@ -45,10 +49,10 @@ class CytotoxService:
     @staticmethod
     def get_all_data(
         db: Session,
-        nanoparticle: Optional[str] = None,
+        nanoparticle: str | None = None,
         # В будущем сюда можно добавлять другие фильтры:
         # cell_line: Optional[str] = None
-    ) -> List[Dict[str, Any]]:
+    ) -> list[dict[str, Any]]:
         table_name = "dbt_serving.serving_all_data_cytotox"
 
         # Собираем фильтры в словарь
@@ -65,7 +69,7 @@ class CytotoxService:
         return data
 
     @staticmethod
-    def get_column_stats(db: Session) -> List[Dict[str, Any]]:
+    def get_column_stats(db: Session) -> list[dict[str, Any]]:
         table_name = "dbt_serving.serving_analytics_column_stats_cytotox"
         query = text(f"SELECT * FROM {table_name}")
         result = db.execute(query)
@@ -73,7 +77,7 @@ class CytotoxService:
         return data
 
     @staticmethod
-    def get_row_stats(db: Session) -> List[Dict[str, Any]]:
+    def get_row_stats(db: Session) -> list[dict[str, Any]]:
         table_name = "dbt_serving.serving_analytics_row_stats_cytotox"
         query = text(f"SELECT * FROM {table_name}")
         result = db.execute(query)
@@ -81,7 +85,7 @@ class CytotoxService:
         return data
 
     @staticmethod
-    def get_top_categories(db: Session) -> List[Dict[str, Any]]:
+    def get_top_categories(db: Session) -> list[dict[str, Any]]:
         """
         Получение статистики по топовым категориям для домена Cytotox.
         """

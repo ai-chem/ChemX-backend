@@ -1,5 +1,6 @@
+from typing import Any
+
 from pydantic import BaseModel
-from typing import List, Dict, Any
 
 
 class CytotoxQueryParams(BaseModel):
@@ -12,11 +13,11 @@ class CytotoxQueryParams(BaseModel):
 class CytotoxResponse(BaseModel):
     """Ответ с данными цитотоксичности"""
 
-    data: List[Dict[str, Any]]
+    data: list[dict[str, Any]]
     total: int
 
 
 class CytotoxAllDataResponse(BaseModel):
     """Ответ со ВСЕМИ данными цитотоксичности"""
 
-    data: List[Dict[str, Any]]
+    data: list[dict[str, Any]]

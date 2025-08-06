@@ -1,11 +1,10 @@
 from fastapi import APIRouter
-from app.domains.cytotox.endpoints import (
-    get_cytotox_data,
-    get_all_cytotox_data,
-    get_cytotox_column_stats,
-    get_cytotox_row_stats,
-    get_cytotox_top_categories,
-)
+
+from app.domains.cytotox.endpoints import get_all_cytotox_data
+from app.domains.cytotox.endpoints import get_cytotox_column_stats
+from app.domains.cytotox.endpoints import get_cytotox_data
+from app.domains.cytotox.endpoints import get_cytotox_row_stats
+from app.domains.cytotox.endpoints import get_cytotox_top_categories
 
 router = APIRouter()
 
@@ -26,7 +25,7 @@ router.add_api_route(
     methods=["GET"],
     response_model_exclude_none=True,
     summary="Получить ВСЕ данные цитотоксичности",
-    description="Получает все записи из витрины cytotox. Внимание: может вызвать высокую нагрузку!",
+    description="Получает все записи из витрины cytotox.",
 )
 
 # Маршрут для статистики по колонкам
@@ -52,5 +51,5 @@ router.add_api_route(
     get_cytotox_top_categories,
     methods=["GET"],
     summary="Скачать топовые категории (Cytotox)",
-    description="Скачивает посчитанную статистику по топовым категориям для домена Cytotox.",
+    description="Скачивает статистику по топовым категориям для домена Cytotox.",
 )

@@ -1,10 +1,9 @@
 from fastapi import APIRouter
-from .endpoints import (
-    get_all_synergy_data,
-    get_synergy_column_stats,
-    get_synergy_row_stats,
-    get_synergy_top_categories,
-)
+
+from .endpoints import get_all_synergy_data
+from .endpoints import get_synergy_column_stats
+from .endpoints import get_synergy_row_stats
+from .endpoints import get_synergy_top_categories
 
 router = APIRouter()
 
