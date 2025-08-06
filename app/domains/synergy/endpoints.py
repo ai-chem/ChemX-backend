@@ -56,3 +56,16 @@ async def get_synergy_top_categories(
         return create_downloadable_response(data, file_format, "synergy_top_categories")
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+async def get_synergy_ml_data(
+    db: Session = Depends(get_db),
+    file_format: str = Query("json", enum=["json", "csv"]),
+) -> Response:
+    try:
+        ml_data = SynergyService.get_ml_data(db)
+        return create_downloadable_response(
+            data=ml_data, file_format=file_format, base_filename="synergy_ml_data"
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

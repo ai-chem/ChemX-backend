@@ -4,6 +4,7 @@ from .endpoints import get_all_nanozymes_data
 from .endpoints import get_nanozymes_column_stats
 from .endpoints import get_nanozymes_row_stats
 from .endpoints import get_nanozymes_top_categories
+from app.domains.nanozymes.endpoints import get_nanozymes_ml_data
 
 router = APIRouter()
 
@@ -32,4 +33,13 @@ router.add_api_route(
     get_nanozymes_top_categories,
     methods=["GET"],
     summary="Скачать топовые категории (Nanozymes)",
+)
+
+
+router.add_api_route(
+    "/data/ml",
+    get_nanozymes_ml_data,
+    methods=["GET"],
+    summary="Скачать данные для ML (Nanozymes)",
+    description="Скачивает все записи из ML-витрины nanozymes.",
 )

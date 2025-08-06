@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from app.domains.cytotox.endpoints import get_all_cytotox_data
 from app.domains.cytotox.endpoints import get_cytotox_column_stats
 from app.domains.cytotox.endpoints import get_cytotox_data
+from app.domains.cytotox.endpoints import get_cytotox_ml_data
 from app.domains.cytotox.endpoints import get_cytotox_row_stats
 from app.domains.cytotox.endpoints import get_cytotox_top_categories
 
@@ -52,4 +53,13 @@ router.add_api_route(
     methods=["GET"],
     summary="Скачать топовые категории (Cytotox)",
     description="Скачивает статистику по топовым категориям для домена Cytotox.",
+)
+
+
+router.add_api_route(
+    "/data/ml",  # Новый URL
+    get_cytotox_ml_data,
+    methods=["GET"],
+    summary="Скачать данные для ML (Cytotox)",
+    description="Скачивает все записи из подготовленной для ML витрины.",
 )

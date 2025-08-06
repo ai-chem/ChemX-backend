@@ -105,3 +105,24 @@ async def get_cytotox_top_categories(
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+
+async def get_cytotox_ml_data(
+    db: Session = Depends(get_db),
+    file_format: str = Query("json", enum=["json", "csv"]),
+) -> Response:
+    """
+    Скачать подготовленные для ML данные для домена Cytotox.
+    """
+    try:
+        # Вызываем новый метод сервиса
+        ml_data = CytotoxService.get_ml_data(db)
+
+        # Переиспользуем нашу универсальную утилиту
+        return create_downloadable_response(
+            data=ml_data,
+            file_format=file_format,
+            base_filename="cytotox_ml_data",  # Имя файла для скачивания
+        )
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

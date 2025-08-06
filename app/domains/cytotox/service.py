@@ -94,3 +94,14 @@ class CytotoxService:
         result = db.execute(query)
         data = [dict(row._mapping) for row in result]
         return data
+
+    @staticmethod
+    def get_ml_data(db: Session) -> list[dict[str, Any]]:
+        """
+        Получение данных из ML-таблицы для домена Cytotox.
+        """
+        table_name = "dbt_serving.serving_ml_cytotox"
+        query = text(f"SELECT * FROM {table_name}")
+        result = db.execute(query)
+        data = [dict(row._mapping) for row in result]
+        return data

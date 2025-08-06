@@ -37,3 +37,10 @@ class SynergyService:
         query = text(f"SELECT * FROM {table_name}")
         result = db.execute(query)
         return [dict(row._mapping) for row in result]
+
+    @staticmethod
+    def get_ml_data(db: Session) -> list[dict[str, Any]]:
+        table_name = "dbt_serving.serving_ml_synergy"
+        query = text(f"SELECT * FROM {table_name}")
+        result = db.execute(query)
+        return [dict(row._mapping) for row in result]

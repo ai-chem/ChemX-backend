@@ -4,6 +4,7 @@ from .endpoints import get_all_seltox_data
 from .endpoints import get_seltox_column_stats
 from .endpoints import get_seltox_row_stats
 from .endpoints import get_seltox_top_categories
+from app.domains.seltox.endpoints import get_seltox_ml_data
 
 router = APIRouter()
 
@@ -30,4 +31,14 @@ router.add_api_route(
     get_seltox_top_categories,
     methods=["GET"],
     summary="Скачать топовые категории (Seltox)",
+)
+
+
+# В конец файла
+router.add_api_route(
+    "/data/ml",
+    get_seltox_ml_data,
+    methods=["GET"],
+    summary="Скачать данные для ML (Seltox)",
+    description="Скачивает все записи из ML-витрины seltox.",
 )
