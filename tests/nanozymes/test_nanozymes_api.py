@@ -172,28 +172,17 @@ def test_get_nanozymes_ml_data_contract():
     """
     Проверяет контракт ответа для эндпоинта с ML-данными домена Nanozymes.
     """
+    # ОБНОВЛЕННЫЙ И ИСПРАВЛЕННЫЙ СПИСОК СТОЛБЦОВ
     EXPECTED_COLUMNS = {
-        "id",
+        # Столбцы без импутации
         "nanoparticle",
         "activity",
         "reaction_type",
-        "target_source",
-        "length_lower",
-        "is_length_lower_imputed",
-        "length_upper",
-        "is_length_upper_imputed",
+        # Числовые столбцы и их флаги импутации
         "length_mean",
         "is_length_mean_imputed",
-        "width_lower",
-        "is_width_lower_imputed",
-        "width_upper",
-        "is_width_upper_imputed",
         "width_mean",
         "is_width_mean_imputed",
-        "depth_lower",
-        "is_depth_lower_imputed",
-        "depth_upper",
-        "is_depth_upper_imputed",
         "depth_mean",
         "is_depth_mean_imputed",
         "c_min",
@@ -206,12 +195,13 @@ def test_get_nanozymes_ml_data_contract():
         "is_ccat_value_imputed",
         "km_value",
         "is_km_value_imputed",
-        "vmax_value",
-        "is_vmax_value_imputed",
         "ph",
         "is_ph_imputed",
         "temperature",
         "is_temperature_imputed",
+        "vmax_standardized_m_per_s",
+        "is_vmax_standardized_m_per_s_imputed",
+        # Категориальные столбцы и их флаги импутации
         "syngony",
         "is_syngony_imputed",
         "length",
@@ -228,8 +218,6 @@ def test_get_nanozymes_ml_data_contract():
         "is_ccat_unit_imputed",
         "km_unit",
         "is_km_unit_imputed",
-        "vmax_unit",
-        "is_vmax_unit_imputed",
     }
 
     response = client.get("/api/v1/nanozymes/data/ml?file_format=json")

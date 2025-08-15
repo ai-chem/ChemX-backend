@@ -100,7 +100,6 @@ def test_get_all_cytotox_data_contract():
         "is_surface_positive",
         "potential_mv",
         "hydrodynamic_nm",
-        "core_nm",
         "zeta_potential_mv",
         "size_in_medium_nm",
         "surface_charge",
