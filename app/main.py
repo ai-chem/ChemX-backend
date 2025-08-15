@@ -44,6 +44,10 @@ def include_routers():
 
     app.include_router(synergy_router, prefix="/api/v1/synergy", tags=["Synergy"])
 
+    from app.domains.universal.router import router as universal_router
+
+    app.include_router(universal_router, prefix="/api/v1/data", tags=["Universal Data"])
+
 
 include_routers()
 
