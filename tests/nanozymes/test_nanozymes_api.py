@@ -172,7 +172,7 @@ def test_get_nanozymes_ml_data_contract():
     """
     Проверяет контракт ответа для эндпоинта с ML-данными домена Nanozymes.
     """
-    # ОБНОВЛЕННЫЙ И ИСПРАВЛЕННЫЙ СПИСОК СТОЛБЦОВ
+
     EXPECTED_COLUMNS = {
         # Столбцы без импутации
         "nanoparticle",

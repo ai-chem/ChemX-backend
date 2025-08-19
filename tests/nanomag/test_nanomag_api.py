@@ -143,11 +143,6 @@ def test_get_nanomag_row_stats_contract():
     )
 
 
-# tests/nanomag/test_universal_api.py
-
-# ... (предыдущие тесты) ...
-
-
 # --- Тесты для эндпоинта /api/v1/nanomag/analytics/top-categories ---
 
 
