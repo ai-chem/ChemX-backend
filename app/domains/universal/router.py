@@ -2,6 +2,7 @@
 from fastapi import APIRouter
 from fastapi import Depends
 from fastapi import HTTPException
+from fastapi import Query
 from sqlalchemy.orm import Session
 
 from .schemas import DataType
@@ -28,14 +29,22 @@ def get_data_schema():
 
 @router.get("", summary="Универсальный эндпоинт для получения данных")
 def get_universal_data(
-    domain: Domain, data_type: DataType, db: Session = Depends(get_db)
+    domain: Domain,
+    data_type: DataType,
+    nanoparticle: str | None = Query(
+        None, description="Фильтр по названию наночастицы (только для type='all_data')"
+    ),
+    db: Session = Depends(get_db),
 ):
     """
     Получает указанный датасет для указанного домена.
     """
     try:
         data = UniversalDataService.get_data(
-            db=db, domain=domain.value, data_type=data_type.value
+            db=db,
+            domain=domain.value,
+            data_type=data_type.value,
+            nanoparticle=nanoparticle,
         )
         return create_downloadable_response(
             data, "json", f"{domain.value}_{data_type.value}"
