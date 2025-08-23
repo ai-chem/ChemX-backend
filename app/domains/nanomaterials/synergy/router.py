@@ -4,7 +4,7 @@ from .endpoints import get_all_synergy_data
 from .endpoints import get_synergy_column_stats
 from .endpoints import get_synergy_row_stats
 from .endpoints import get_synergy_top_categories
-from app.domains.synergy.endpoints import get_synergy_ml_data
+from app.domains.nanomaterials.synergy.endpoints import get_synergy_ml_data
 
 router = APIRouter()
 

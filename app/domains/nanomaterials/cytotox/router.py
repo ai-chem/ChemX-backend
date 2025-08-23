@@ -1,11 +1,11 @@
 from fastapi import APIRouter
 
-from app.domains.cytotox.endpoints import get_all_cytotox_data
-from app.domains.cytotox.endpoints import get_cytotox_column_stats
-from app.domains.cytotox.endpoints import get_cytotox_data
-from app.domains.cytotox.endpoints import get_cytotox_ml_data
-from app.domains.cytotox.endpoints import get_cytotox_row_stats
-from app.domains.cytotox.endpoints import get_cytotox_top_categories
+from app.domains.nanomaterials.cytotox.endpoints import get_all_cytotox_data
+from app.domains.nanomaterials.cytotox.endpoints import get_cytotox_column_stats
+from app.domains.nanomaterials.cytotox.endpoints import get_cytotox_data
+from app.domains.nanomaterials.cytotox.endpoints import get_cytotox_ml_data
+from app.domains.nanomaterials.cytotox.endpoints import get_cytotox_row_stats
+from app.domains.nanomaterials.cytotox.endpoints import get_cytotox_top_categories
 
 router = APIRouter()
 
