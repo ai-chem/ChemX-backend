@@ -220,6 +220,16 @@ def test_get_nanomag_ml_data_contract():
         "is_space_group_core_imputed",
         "space_group_shell",
         "is_space_group_shell_imputed",
+        "is_core_shell_formula_imputed",
+        "is_np_hydro_size_imputed",
+        "emic_size",
+        "is_emic_size_imputed",
+        "instrument",
+        "is_instrument_imputed",
+        "core_shell_formula",
+        "is_name_imputed",
+        "np_hydro_size",
+        "name",
     }
 
     response = client.get("/api/v1/nanomag/data/ml?file_format=json")

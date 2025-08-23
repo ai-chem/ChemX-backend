@@ -5,7 +5,7 @@ from .endpoints import get_all_nanomag_data
 from .endpoints import get_nanomag_column_stats
 from .endpoints import get_nanomag_row_stats
 from .endpoints import get_nanomag_top_categories
-from app.domains.nanomag.endpoints import get_nanomag_ml_data
+from app.domains.nanomaterials.nanomag.endpoints import get_nanomag_ml_data
 
 # Импортируем наш эндпоинт из соседнего файла
 

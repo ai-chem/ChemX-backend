@@ -6,8 +6,8 @@ from sqlalchemy.orm import Session
 
 from app.database import get_db
 from app.domains.common.utils import create_downloadable_response
-from app.domains.cytotox.schemas import CytotoxResponse
-from app.domains.cytotox.service import CytotoxService
+from app.domains.nanomaterials.cytotox.schemas import CytotoxResponse
+from app.domains.nanomaterials.cytotox.service import CytotoxService
 
 # Импортируем новую утилиту
 

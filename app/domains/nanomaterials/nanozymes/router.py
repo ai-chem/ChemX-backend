@@ -4,7 +4,7 @@ from .endpoints import get_all_nanozymes_data
 from .endpoints import get_nanozymes_column_stats
 from .endpoints import get_nanozymes_row_stats
 from .endpoints import get_nanozymes_top_categories
-from app.domains.nanozymes.endpoints import get_nanozymes_ml_data
+from app.domains.nanomaterials.nanozymes.endpoints import get_nanozymes_ml_data
 
 router = APIRouter()
 

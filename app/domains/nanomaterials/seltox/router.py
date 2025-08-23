@@ -4,7 +4,7 @@ from .endpoints import get_all_seltox_data
 from .endpoints import get_seltox_column_stats
 from .endpoints import get_seltox_row_stats
 from .endpoints import get_seltox_top_categories
-from app.domains.seltox.endpoints import get_seltox_ml_data
+from app.domains.nanomaterials.seltox.endpoints import get_seltox_ml_data
 
 router = APIRouter()
 

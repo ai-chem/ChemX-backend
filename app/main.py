@@ -20,27 +20,27 @@ def include_routers():
     Импортирует и подключает роутеры для каждого домена данных.
     """
     # 1.  Cytotox
-    from app.domains.cytotox.router import router as cytotox_router
+    from app.domains.nanomaterials.cytotox.router import router as cytotox_router
 
     app.include_router(cytotox_router, prefix="/api/v1/cytotox", tags=["Cytotox"])
 
     # 2.  Nanomag
-    from app.domains.nanomag.router import router as nanomag_router
+    from app.domains.nanomaterials.nanomag.router import router as nanomag_router
 
     app.include_router(nanomag_router, prefix="/api/v1/nanomag", tags=["Nanomag"])
 
     # 3.  Nanozymes
-    from app.domains.nanozymes.router import router as nanozymes_router
+    from app.domains.nanomaterials.nanozymes.router import router as nanozymes_router
 
     app.include_router(nanozymes_router, prefix="/api/v1/nanozymes", tags=["Nanozymes"])
 
     # 4.  Seltox
-    from app.domains.seltox.router import router as seltox_router
+    from app.domains.nanomaterials.seltox.router import router as seltox_router
 
     app.include_router(seltox_router, prefix="/api/v1/seltox", tags=["Seltox"])
 
     # 5.  Synergy
-    from app.domains.synergy.router import router as synergy_router
+    from app.domains.nanomaterials.synergy.router import router as synergy_router
 
     app.include_router(synergy_router, prefix="/api/v1/synergy", tags=["Synergy"])
 

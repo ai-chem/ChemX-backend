@@ -9,6 +9,12 @@ class Domain(str, Enum):
     seltox = "seltox"
     synergy = "synergy"
 
+    benzimidazoles = "benzimidazoles"
+    co_crystals = "co_crystals"
+    complexes = "complexes"
+    eyedrops = "eyedrops"
+    oxazolidinones = "oxazolidinones"
+
 
 class DataType(str, Enum):
     all_data = "all_data"
